@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Udhaar</string>
+    <string name="action_settings">Settings</string>
+    <string name="one_time_login">One time login</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_userprofile">userprofile</string>
+    <string name="title_activity_popupmoney">popupmoney</string>
+    <string name="title_activity_popupmoneygive">popupmoneygive</string>
+    <string name="title_activity_popupmoneytake">popupmoneytake</string>
+    <string name="title_activity_popupitemgive">popupitemgive</string>
+    <string name="title_activity_popupitemreturn">popupitemreturn</string>
+</resources>

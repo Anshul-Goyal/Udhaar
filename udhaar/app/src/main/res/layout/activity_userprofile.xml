@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.udhaar.udhaar.userprofile">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@android:drawable/ic_dialog_email" />-->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bkgrnd_userprofile">
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Give"-->
+            <!--android:id="@+id/button14"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:background="#073a11"-->
+            <!--android:textSize="30dp"-->
+            <!--android:onClick="popupmoneygive"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="171dp"-->
+            <!--android:backgroundTintMode="src_over" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Take"-->
+            <!--android:id="@+id/button15"-->
+            <!--android:layout_alignTop="@+id/button14"-->
+            <!--android:layout_toRightOf="@+id/button14"-->
+            <!--android:layout_toEndOf="@+id/button14"-->
+            <!--android:background="#a21c1c"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textSize="30dp"-->
+            <!--android:onClick="popupmoneytake" />-->
+        <Button
+            android:id="@+id/button14"
+
+            android:text="Give"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:onClick="popupmoneygive"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:background="@drawable/givebutton"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:layout_above="@+id/button15"
+            android:layout_alignLeft="@+id/button15"
+            android:layout_alignStart="@+id/button15" />
+
+        <Button
+            android:id="@+id/button15"
+
+            android:text="Take"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:onClick="popupmoneytake"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:background="@drawable/takebutton"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:layout_marginBottom="125dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="57dp"
+            android:layout_marginEnd="57dp" />
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

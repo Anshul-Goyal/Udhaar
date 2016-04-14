@@ -3,14 +3,19 @@ package com.udhaar.udhaar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -18,10 +23,10 @@ public class login extends AppCompatActivity implements AsyncResponse {
 
     EditText etmobile;
     Button btnLogin;
-    private SharedPreferences preferenceSettings;
-    private SharedPreferences.Editor preferenceEditor;
-    String txtid="";
-    private static final int mode=0;
+//    private SharedPreferences preferenceSettings;
+//    private SharedPreferences.Editor preferenceEditor;
+//    String txtid="";
+//    private static final int mode=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,27 +62,48 @@ public class login extends AppCompatActivity implements AsyncResponse {
     @Override
     public void processFinish(String output) {
         System.out.println("===================  "+output.toString()+"    =============");
-        if(output.equals("-1")){
-            Toast.makeText(this, "Login Failed!!!",
-                    Toast.LENGTH_LONG).show();
+        JSONObject jObj= new JSONObject();
+        try {
+            jObj = new JSONObject(output.toString());
         }
-        else{
+        catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        try {
+            if (jObj.getString("success").equals("1"))
+            {
                 Toast.makeText(this, "Account created Successfully",
                         Toast.LENGTH_LONG).show();
-
-            preferenceSettings = getPreferences(mode);
-            preferenceEditor = preferenceSettings.edit();
-            String isid = preferenceSettings.getString("txtid",txtid);
-
-                preferenceEditor = preferenceSettings.edit();
-                preferenceEditor.putString("txtid", output);
-                preferenceEditor.commit();
-
-            Intent intent = new Intent(this, userhome.class);
-            startActivity(intent);
-
+                PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtid", jObj.getString("id")).commit();
+                Intent intent = new Intent(this, userhome.class);
+                startActivity(intent);
+//                preferenceSettings = getPreferences(mode);
+//                preferenceEditor = preferenceSettings.edit();
+//                String isid = preferenceSettings.getString("txtid",txtid);
+//
+//                preferenceEditor = preferenceSettings.edit();
+//                preferenceEditor.putString("txtid", output);
+//                preferenceEditor.commit();
+//
+//
+//                PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtid", output.getSTring).commit();
+            }
+            else
+            {
+                Toast.makeText(this, "Login Failed!!!",
+                        Toast.LENGTH_LONG).show();
+            }
         }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
+
 }
+
+
 

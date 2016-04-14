@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 
 public class HomeActivity extends AppCompatActivity {
 
-
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     boolean firstlogin=true;

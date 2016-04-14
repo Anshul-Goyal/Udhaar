@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -30,18 +31,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.Attributes;
 import android.provider.ContactsContract.PhoneLookup;
 import android.widget.Toast;
 
 
 public class userhome extends ListActivity implements AsyncResponse {
-
+    Map<String, String> cmap = new HashMap<String, String>();
     String namearray[];
-    private SharedPreferences preferenceSettings;
-    private SharedPreferences.Editor preferenceEditor;
-    String txtid="";
-    private static final int mode=0;
+//    private SharedPreferences preferenceSettings;
+//    private SharedPreferences.Editor preferenceEditor;
+//    String txtid="";
+//    private static final int mode=0;
 
     private static final int PICK_CONTACT = 1; // request code integer
 
@@ -59,14 +61,15 @@ public class userhome extends ListActivity implements AsyncResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userhome);
 
-        preferenceSettings = getPreferences(mode);
-        String id = preferenceSettings.getString("txtid",txtid);
-
+//        preferenceSettings = getPreferences(mode);
+//        String id = preferenceSettings.getString("txtid",txtid);
+        String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
         ContactList = new ArrayList<HashMap<String, String>>();
         HashMap postData = new HashMap();
         postData.put("mobile", "android");
 //        postData.put("txtid",id); ---------------->>>>>>>>>> Should be uncommented and next line should be commented
-        postData.put("txtid","1");
+        postData.put("txtid",id);
+        System.out.println("Users id ::::::::::  " + id);
 
         PostResponseAsyncTask listTask = new PostResponseAsyncTask(userhome.this, postData);
         listTask.execute(url_all_products);
@@ -111,12 +114,14 @@ public class userhome extends ListActivity implements AsyncResponse {
                                     int position, long id) {
 
                 // selected item
-                String num = ((TextView) view).getText().toString();
-
+                String name = ((TextView) view).getText().toString();
+                System.out.println("Name is ::::::::: "+name);
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), userprofile.class);
                 // sending data to new activity
-                i.putExtra("name", num);
+                i.putExtra("name", name);
+                i.putExtra("cnum",cmap.get(name));
+                System.out.println("Number is ::::::::: " +cmap.get(name));
                 startActivity(i);
 //
 //
@@ -152,13 +157,14 @@ public class userhome extends ListActivity implements AsyncResponse {
                         String[] mob_nos = new String[person.length()];
                         System.out.println(person.toString());
                         for(int i = 0 ; i < person.length() ; i++) {
-//                    mob_nos[i] = person.getString("mob_no");
+//                          mob_nos[i] = person.getString("mob_no");
                             JSONObject object = person.getJSONObject(i);
                             System.out.println(object.toString());
                             System.out.println(object.getString("mob_no")); // contact number to be used to get name from contacts
                             String name=getContactName(this,object.getString("mob_no"));
                             System.out.println("Name is : " + name);
                             namearray[i]=name;
+                            cmap.put(namearray[i],object.getString("mob_no"));
                         }
                     }
 
@@ -234,7 +240,8 @@ public class userhome extends ListActivity implements AsyncResponse {
                                     Phone.CONTACT_ID + " = " + contactId, null, null);
                             while (phones.moveToNext()) {
                                 String number = phones.getString(phones.getColumnIndex(Phone.NUMBER));
-                                Contact_Number = "9760807747";
+//                                Contact_Number = "9760807747";
+                                Contact_Number = getContact(number);
                                 int type = phones.getInt(phones.getColumnIndex(Phone.TYPE));
                                 switch (type) {
                                     case Phone.TYPE_HOME:
@@ -257,14 +264,15 @@ public class userhome extends ListActivity implements AsyncResponse {
 
                     }
 
-                    preferenceSettings = getPreferences(mode);
-                    String id="";
-                    id = preferenceSettings.getString("txtid",null);
+//                    preferenceSettings = getPreferences(mode);
+                    String id=PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
+//                    id = preferenceSettings.getString("txtid",null);
                     System.out.println("Adders id ::::::::::  " + id );
+                    System.out.println("Added number ::::::::::  " + Contact_Number );
                     HashMap postData2 = new HashMap();
                     postData2.put("mobile", "android");
                     postData2.put("user_mob_no", Contact_Number);
-                    postData2.put("txtid","1");
+                    postData2.put("txtid",id);
 
                     PostResponseAsyncTask AddTask =
                             new PostResponseAsyncTask(userhome.this, postData2);
@@ -278,18 +286,27 @@ public class userhome extends ListActivity implements AsyncResponse {
 
     public String getContact (String num)
     {
+        System.out.println("Getting 10 digit Number");
         String n="";
+        int cnt=10;
         char a[] = num.toCharArray();
         int l = a.length;
-
-        for(int i=l-1;i>0;i++)
+        System.out.println("length   :: " + l);
+        for(int i=l-1;i>=0&&cnt>=1;i--)
         {
             if((a[i]>='0'&&a[i]<='9'))
             {
                 n+=a[i];
+                cnt--;
             }
         }
-        return n;
+        System.out.println("length   :: " + n.length());
+        String cnum="";
+        for(int i=9;i>=0;i--)
+        {
+            cnum+=n.charAt(i);
+        }
+        return cnum;
     }
 
 

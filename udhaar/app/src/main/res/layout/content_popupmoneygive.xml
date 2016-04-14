@@ -43,6 +43,7 @@
         android:layout_below="@+id/textView4"
         android:layout_toLeftOf="@+id/editText4"
         android:layout_toStartOf="@+id/editText4"
+        android:onClick="save_give"
         android:layout_marginTop="34dp" />
 
     <Button

@@ -9,50 +9,41 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class userprofile extends AppCompatActivity {
-
+    String cnum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                cnum = null;
+            } else {
+                cnum = extras.getString("cnum");
+            }
+        } else {
+            cnum = (String) savedInstanceState.getSerializable("cnum");
+        }
+
     }
 
     public void popupmoneygive (View view){
 
-        Intent intent = new Intent(this, popupmoneygive.class);
-
-        startActivity(intent);
+        Intent i = new Intent(this, popupmoneygive.class);
+        i.putExtra("cnum",cnum);
+        startActivity(i);
     }
 
     public void popupmoneytake (View view){
 
-        Intent intent = new Intent(this, popupmoneytake.class);
-
-        startActivity(intent);
+        Intent i = new Intent(this, popupmoneytake.class);
+        i.putExtra("cnum",cnum);
+        startActivity(i);
     }
 
-    public void popupitemgive (View view){
-
-        Intent intent = new Intent(this, popupitemgive.class);
-
-        startActivity(intent);
-    }
-
-    public void popupitemreturn (View view){
-
-        Intent intent = new Intent(this, popupitemreturn.class);
-
-        startActivity(intent);
-    }
 
 }

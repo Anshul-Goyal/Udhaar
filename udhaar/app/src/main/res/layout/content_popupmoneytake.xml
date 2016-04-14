@@ -43,6 +43,7 @@
         android:layout_below="@+id/textView5"
         android:layout_toLeftOf="@+id/editText5"
         android:layout_toStartOf="@+id/editText5"
+        android:onClick="save_take"
         android:layout_marginTop="34dp" />
 
     <Button

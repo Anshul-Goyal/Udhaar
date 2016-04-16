@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
 
         preferenceSettings = getPreferences(mode);
         preferenceEditor = preferenceSettings.edit();
-        boolean isfirstlogin=preferenceSettings.getBoolean("firstlogin",firstlogin);
+        boolean isfirstlogin=preferenceSettings.getBoolean("firstlogin", firstlogin);
         if(isfirstlogin)
         {
             preferenceEditor.putBoolean("firstlogin",false);
@@ -90,6 +90,11 @@ public class HomeActivity extends AppCompatActivity {
 
     public void gotoprofilepage (View view) {
         Intent intent = new Intent(this, userprofile.class);
+        startActivity(intent);
+    }
+
+    public void DB_DEMO (View view) {
+        Intent intent = new Intent(this, DatabaseDemo.class);
         startActivity(intent);
     }
 

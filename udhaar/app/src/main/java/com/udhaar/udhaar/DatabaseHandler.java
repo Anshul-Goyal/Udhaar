@@ -157,6 +157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PH_NO, contact.getPhoneNumber());
         values.put(KEY_MONEY, contact.getMoney());
         values.put(KEY_TIME, contact.getTime());
+        values.put(KEY_ID, contact.getID());
 
         // updating row
         return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
@@ -170,7 +171,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, contact.getName());
+        values.put(KEY_PH_NO, contact.getPhoneNumber());
         values.put(KEY_MONEY, contact.getMoney());
+        values.put(KEY_TIME, contact.getTime());
+        values.put(KEY_ID, contact.getID());
 
         // updating row
         return db.update(TABLE_CONTACTS, values, KEY_PH_NO + " = ?",

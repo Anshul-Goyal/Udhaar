@@ -31,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         boolean isfirstlogin = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).getBoolean("firstlogin",true);
         if(isfirstlogin)
         {
+
             Intent intent = new Intent(this, login.class);
             startActivity(intent);
             this.finish();

@@ -111,7 +111,9 @@
             android:layout_marginStart="43dp"
             android:layout_marginTop="78dp"
             android:layout_alignRight="@+id/button14"
-            android:layout_alignEnd="@+id/button14" />
+            android:layout_alignEnd="@+id/button14"
+            android:textSize="50dp"
+            android:textColor="#090909" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,9 +122,10 @@
             android:layout_above="@+id/button14"
             android:layout_alignRight="@+id/button14"
             android:layout_alignEnd="@+id/button14"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="80dp"
             android:layout_alignLeft="@+id/button14"
-            android:layout_alignStart="@+id/button14" />
+            android:layout_alignStart="@+id/button14"
+            android:textSize="40dp" />
 
     </RelativeLayout>
 

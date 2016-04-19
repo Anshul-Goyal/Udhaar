@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class userprofile extends AppCompatActivity {
     String cnum;
     String name;
-    String finalmoney;
+//    String finalmoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class userprofile extends AppCompatActivity {
             } else {
                 cnum = extras.getString("cnum");
                 name = extras.getString("name");
-                finalmoney = extras.getString("name");  // CHECK HERE !!!!
+//                finalmoney = extras.getString("name");  // CHECK HERE !!!!
             }
         } else {
             cnum = (String) savedInstanceState.getSerializable("cnum");
@@ -37,17 +37,19 @@ public class userprofile extends AppCompatActivity {
         TextView t1 = (TextView)findViewById(R.id.textname);
         t1.setText(name);
 
-        finalmoney="250";
+        com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
+        DatabaseHandler ob = new DatabaseHandler(this);
+        contact = ob.getContact(cnum);
+        int finalmoney=contact.getMoney();
         TextView t2 = (TextView)findViewById(R.id.textmoney);
         t2.setText(finalmoney);
 
 
 
-        if(finalmoney.startsWith("-"))
+        if(finalmoney < 0)
         {
             t2.setTextColor(Color.RED);
         }
-
         else
         {
             t2.setTextColor(Color.GREEN);

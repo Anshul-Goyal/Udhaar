@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/bkgrnd_userprofile">
+        android:background="@drawable/newbckgrnd_userprofile">
 
         <!--<Button-->
             <!--android:layout_width="wrap_content"-->
@@ -109,10 +109,10 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="43dp"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="78dp"
+            android:layout_marginTop="80dp"
             android:layout_alignRight="@+id/button14"
             android:layout_alignEnd="@+id/button14"
-            android:textSize="50dp"
+            android:textSize="40dp"
             android:textColor="#090909" />
 
         <TextView
@@ -122,7 +122,7 @@
             android:layout_above="@+id/button14"
             android:layout_alignRight="@+id/button14"
             android:layout_alignEnd="@+id/button14"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="28dp"
             android:layout_alignLeft="@+id/button14"
             android:layout_alignStart="@+id/button14"
             android:textSize="40dp" />

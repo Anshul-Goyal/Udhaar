@@ -35,15 +35,15 @@ import java.util.Map;
 import java.util.jar.Attributes;
 import android.provider.ContactsContract.PhoneLookup;
 import android.widget.Toast;
-
+import android.view.WindowManager;
 
 public class userhome extends ListActivity implements AsyncResponse {
     Map<String, String> cmap = new HashMap<String, String>();
     String namearray[];
-//    private SharedPreferences preferenceSettings;
-//    private SharedPreferences.Editor preferenceEditor;
-//    String txtid="";
-//    private static final int mode=0;
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
+    String txtid="";
+    private static final int mode=0;
 
     private static final int PICK_CONTACT = 1; // request code integer
 
@@ -61,8 +61,8 @@ public class userhome extends ListActivity implements AsyncResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userhome);
 
-//        preferenceSettings = getPreferences(mode);
-//        String id = preferenceSettings.getString("txtid",txtid);
+        preferenceSettings = getPreferences(mode);
+        //String id = preferenceSettings.getString("txtid",txtid);
         String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
         ContactList = new ArrayList<HashMap<String, String>>();
         HashMap postData = new HashMap();
@@ -100,7 +100,7 @@ public class userhome extends ListActivity implements AsyncResponse {
     public void display() {
         System.out.println("inside display");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,namearray);
+                R.layout.activity_listview,namearray);
         //setlistAdapter(adapter);
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);

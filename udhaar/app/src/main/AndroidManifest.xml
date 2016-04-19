@@ -15,7 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
 
 
         <activity
@@ -32,7 +32,11 @@
             android:name=".login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".userhome" />
+        <activity
+            android:name=".userhome"
+            android:label="userhome"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity android:name=".db"></activity>
         <activity
             android:name=".userprofile"
@@ -58,6 +62,7 @@
             android:name=".popupitemreturn"
             android:label="Return Item"
             android:theme="@style/AppTheme.CustomTheme"></activity>
+
     </application>
 
 </manifest>

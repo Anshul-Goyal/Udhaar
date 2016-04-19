@@ -97,7 +97,32 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="57dp"
-            android:layout_marginEnd="57dp" />
+            android:layout_marginEnd="57dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textname"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="43dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="78dp"
+            android:layout_alignRight="@+id/button14"
+            android:layout_alignEnd="@+id/button14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textmoney"
+            android:layout_above="@+id/button14"
+            android:layout_alignRight="@+id/button14"
+            android:layout_alignEnd="@+id/button14"
+            android:layout_marginBottom="60dp"
+            android:layout_alignLeft="@+id/button14"
+            android:layout_alignStart="@+id/button14" />
 
     </RelativeLayout>
 

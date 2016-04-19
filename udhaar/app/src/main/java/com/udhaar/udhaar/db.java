@@ -11,5 +11,4 @@ public class db extends AppCompatActivity {
         setContentView(R.layout.activity_db);
     }
 
-
 }

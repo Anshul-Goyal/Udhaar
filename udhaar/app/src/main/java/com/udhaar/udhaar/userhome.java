@@ -62,12 +62,10 @@ public class userhome extends ListActivity implements AsyncResponse {
         setContentView(R.layout.activity_userhome);
 
         preferenceSettings = getPreferences(mode);
-        //String id = preferenceSettings.getString("txtid",txtid);
         String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
         ContactList = new ArrayList<HashMap<String, String>>();
         HashMap postData = new HashMap();
         postData.put("mobile", "android");
-//        postData.put("txtid",id); ---------------->>>>>>>>>> Should be uncommented and next line should be commented
         postData.put("txtid",id);
         System.out.println("Users id ::::::::::  " + id);
 
@@ -120,13 +118,15 @@ public class userhome extends ListActivity implements AsyncResponse {
                 Intent i = new Intent(getApplicationContext(), userprofile.class);
                 // sending data to new activity
                 i.putExtra("name", name);
-                i.putExtra("cnum",cmap.get(name));
-                System.out.println("Number is ::::::::: " +cmap.get(name));
+                i.putExtra("cnum", cmap.get(name));
+                System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
 //
 //
             }
         });
+
+//        this.finish();
 
     }
 
@@ -183,6 +183,7 @@ public class userhome extends ListActivity implements AsyncResponse {
 
                 Intent intent = new Intent(this, userhome.class);
                 startActivity(intent);
+                this.finish();
 
             }
             else

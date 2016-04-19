@@ -37,7 +37,6 @@
             android:label="userhome"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".db"></activity>
         <activity
             android:name=".userprofile"
             android:label="@string/title_activity_userprofile"

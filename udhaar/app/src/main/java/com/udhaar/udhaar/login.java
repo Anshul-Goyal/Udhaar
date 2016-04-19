@@ -47,7 +47,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 PostResponseAsyncTask loginTask =
                         new PostResponseAsyncTask(login.this, postData);
                 System.out.println("Before Logging in");
-                loginTask.execute("http://172.30.127.159:8088/udhaar-db/registration.php");
+                loginTask.execute("http://172.20.41.168:8088/udhaar-db/registration.php");
                 System.out.println("After Logging in....");
             }
         });

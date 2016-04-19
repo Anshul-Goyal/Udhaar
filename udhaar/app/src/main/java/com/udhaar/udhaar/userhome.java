@@ -52,7 +52,10 @@ public class userhome extends ListActivity implements AsyncResponse {
     private static String url_all_products = "http://172.30.127.159:8088/udhaar-db/get_list.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MOB_NO = "mob_no";
+    private static final String TAG_MONEY = "money";
+    private static final String TAG_TIME = "tym";
     private static final String TAG_PERSON = "person";
+    private static final String TAG_ID = "id";
     private static final String TAG_COUNT = "count";
     JSONArray persons = null;
 
@@ -165,6 +168,9 @@ public class userhome extends ListActivity implements AsyncResponse {
                             System.out.println("Name is : " + name);
                             namearray[i]=name;
                             cmap.put(namearray[i],object.getString("mob_no"));
+                            com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"));
+                            DatabaseHandler ob = new DatabaseHandler(this);
+                            ob.addContact(contact);
                         }
                     }
 
@@ -312,3 +318,10 @@ public class userhome extends ListActivity implements AsyncResponse {
 
 
 }
+
+
+
+
+
+
+

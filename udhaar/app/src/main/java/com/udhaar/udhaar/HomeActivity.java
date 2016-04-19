@@ -31,15 +31,17 @@ public class HomeActivity extends AppCompatActivity {
         boolean isfirstlogin=preferenceSettings.getBoolean("firstlogin",firstlogin);
         if(isfirstlogin)
         {
-            preferenceEditor.putBoolean("firstlogin",false);
+            preferenceEditor.putBoolean("firstlogin", false);
             preferenceEditor.commit();
             Intent intent = new Intent(this, login.class);
             startActivity(intent);
+            this.finish();
         }
         else
         {
             Intent intent = new Intent(this, userhome.class);
             startActivity(intent);
+            this.finish();
         }
     }
 
@@ -71,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, login.class);
 
             startActivity(intent);
+            this.finish();
         }
     }
 
@@ -79,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, userhome.class);
 
         startActivity(intent);
+        this.finish();
     }
 
 
@@ -86,16 +90,19 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, db.class);
         startActivity(intent);
+        this.finish();
     }
 
     public void gotoprofilepage (View view) {
         Intent intent = new Intent(this, userprofile.class);
         startActivity(intent);
+        this.finish();
     }
 
     public void DB_DEMO (View view) {
         Intent intent = new Intent(this, DatabaseDemo.class);
         startActivity(intent);
+        this.finish();
     }
 
 }

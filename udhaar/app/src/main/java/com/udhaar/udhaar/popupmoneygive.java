@@ -62,7 +62,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                 PostResponseAsyncTask Task =
                         new PostResponseAsyncTask(popupmoneygive.this, postData);
                 System.out.println("Before Logging in");
-                Task.execute("http://172.30.127.159:8088/udhaar-db/popupmoneygive.php");
+                Task.execute("http://172.20.41.168:8088/udhaar-db/popupmoneygive.php");
                 System.out.println("After Logging in....");
             }
         });
@@ -84,6 +84,10 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
         try {
             if (jObj.getString("success").equals("1"))
             {
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
+                DatabaseHandler ob = new DatabaseHandler(this);
+
+
                 Toast.makeText(this, "Money Added Successfully",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, userhome.class);

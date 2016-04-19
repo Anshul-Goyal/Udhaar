@@ -40,12 +40,13 @@ public class userprofile extends AppCompatActivity {
         }
 
         TextView t1 = (TextView)findViewById(R.id.textname);
-        t1.setText("name");
+        t1.setText(name);
 
+        finalmoney="250";
         TextView t2 = (TextView)findViewById(R.id.textmoney);
         t2.setText(finalmoney);
 
-        finalmoney="250";
+
 
         if(finalmoney.startsWith("-"))
         {

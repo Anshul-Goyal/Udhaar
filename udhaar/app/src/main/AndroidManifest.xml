@@ -62,6 +62,9 @@
             android:name=".popupitemreturn"
             android:label="Return Item"
             android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".DatabaseDemo"
+            ></activity>
 
     </application>
 

@@ -13,6 +13,8 @@ import android.widget.TextView;
 public class userprofile extends AppCompatActivity {
     String cnum;
     String name;
+//    int id,mon;
+    com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
 //    String finalmoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class userprofile extends AppCompatActivity {
             } else {
                 cnum = extras.getString("cnum");
                 name = extras.getString("name");
-//                finalmoney = extras.getString("name");  // CHECK HERE !!!!
+//              finalmoney = extras.getString("name");  // CHECK HERE !!!!
             }
         } else {
             cnum = (String) savedInstanceState.getSerializable("cnum");
@@ -37,9 +39,13 @@ public class userprofile extends AppCompatActivity {
         TextView t1 = (TextView)findViewById(R.id.textname);
         t1.setText(name);
 
-        com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
+
         DatabaseHandler ob = new DatabaseHandler(this);
         contact = ob.getContact(cnum);
+//        contact.setMoney(45);
+//        contact.setName("Aaarchit");
+//        contact.setPhoneNumber("9908341446");
+//        contact.setID(2);
         int finalm=contact.getMoney();
         TextView t2 = (TextView)findViewById(R.id.textmoney);
         String finalmoney = String.valueOf(finalm);
@@ -61,6 +67,10 @@ public class userprofile extends AppCompatActivity {
 
         Intent i = new Intent(this, popupmoneygive.class);
         i.putExtra("cnum",cnum);
+        i.putExtra("name" , name);
+        i.putExtra("id",contact.getID());
+        i.putExtra("tym",contact.getTime());
+        i.putExtra("money",contact.getMoney());
         startActivity(i);
     }
 
@@ -68,6 +78,10 @@ public class userprofile extends AppCompatActivity {
 
         Intent i = new Intent(this, popupmoneytake.class);
         i.putExtra("cnum",cnum);
+        i.putExtra("name" , name);
+        i.putExtra("id",contact.getID());
+        i.putExtra("tym",contact.getTime());
+        i.putExtra("money",contact.getMoney());
         startActivity(i);
     }
 

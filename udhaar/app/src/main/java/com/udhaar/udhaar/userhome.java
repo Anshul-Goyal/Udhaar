@@ -117,7 +117,7 @@ public class userhome extends ListActivity implements AsyncResponse {
         List<com.udhaar.udhaar.Contacts> contacts = db.getAllContacts();
 
         for (com.udhaar.udhaar.Contacts cn : contacts) {
-            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber();
+            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime();
             // Writing Contacts to log
             Log.d("Name: ", log);
         }
@@ -183,6 +183,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                             com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"));
                             DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);
+                            System.out.println("Object being added is..... : "+object.getInt("money"));
                         }
                     }
 

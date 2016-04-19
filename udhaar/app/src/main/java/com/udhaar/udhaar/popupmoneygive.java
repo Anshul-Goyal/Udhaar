@@ -19,10 +19,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
     String cnum;
     Button btngive;
+    Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
         getWindow().setLayout((int) (width * 0.8), (int) (height * 0.35));
 
         if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
+            extras = getIntent().getExtras();
             if(extras == null) {
                 cnum = null;
             } else {
@@ -84,9 +86,20 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
         try {
             if (jObj.getString("success").equals("1"))
             {
-                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
-                DatabaseHandler ob = new DatabaseHandler(this);
 
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("mob_no"),extras.getInt("money"),extras.getString("tym"));
+                DatabaseHandler ob = new DatabaseHandler(this);
+                ob.updateContact(contact,1);
+
+                DatabaseHandler db = new DatabaseHandler(this);
+                Log.d("Reading: ", "Reading all contacts..");
+                List<Contacts> contacts = db.getAllContacts();
+
+                for (com.udhaar.udhaar.Contacts cn : contacts) {
+                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime();
+                    // Writing Contacts to log
+                    Log.d("Name: ", log);
+                }
 
                 Toast.makeText(this, "Money Added Successfully",
                         Toast.LENGTH_LONG).show();

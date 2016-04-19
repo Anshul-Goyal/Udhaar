@@ -23,10 +23,6 @@ public class login extends AppCompatActivity implements AsyncResponse {
 
     EditText etmobile;
     Button btnLogin;
-//    private SharedPreferences preferenceSettings;
-//    private SharedPreferences.Editor preferenceEditor;
-//    String txtid="";
-//    private static final int mode=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +72,10 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 Toast.makeText(this, "Account created Successfully",
                         Toast.LENGTH_LONG).show();
                 PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtid", jObj.getString("id")).commit();
+                PreferenceManager.getDefaultSharedPreferences(login.this).edit().putBoolean("firstlogin",false).commit();
                 Intent intent = new Intent(this, userhome.class);
                 startActivity(intent);
-//                preferenceSettings = getPreferences(mode);
-//                preferenceEditor = preferenceSettings.edit();
-//                String isid = preferenceSettings.getString("txtid",txtid);
-//
-//                preferenceEditor = preferenceSettings.edit();
-//                preferenceEditor.putString("txtid", output);
-//                preferenceEditor.commit();
-//
-//
-//                PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtid", output.getSTring).commit();
+                this.finish();
             }
             else
             {

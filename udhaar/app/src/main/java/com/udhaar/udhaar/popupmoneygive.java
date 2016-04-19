@@ -88,6 +88,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, userhome.class);
                 startActivity(intent);
+                this.finish();
             }
             else
             {

@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.jar.Attributes;
 import android.provider.ContactsContract.PhoneLookup;
@@ -49,7 +50,7 @@ public class userhome extends ListActivity implements AsyncResponse {
 
 
     ArrayList<HashMap<String, String>> ContactList;
-    private static String url_all_products = "http://172.30.127.159:8088/udhaar-db/get_list.php";
+    private static String url_all_products = "http://172.20.41.168:8088/udhaar-db/get_list.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MOB_NO = "mob_no";
     private static final String TAG_MONEY = "money";
@@ -110,6 +111,19 @@ public class userhome extends ListActivity implements AsyncResponse {
         ListView lv = getListView();
 //
 //        // listening to single list item on click
+
+        DatabaseHandler db = new DatabaseHandler(this);
+        Log.d("Reading: ", "Reading all contacts..");
+        List<com.udhaar.udhaar.Contacts> contacts = db.getAllContacts();
+
+        for (com.udhaar.udhaar.Contacts cn : contacts) {
+            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber();
+            // Writing Contacts to log
+            Log.d("Name: ", log);
+        }
+
+
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -124,8 +138,6 @@ public class userhome extends ListActivity implements AsyncResponse {
                 i.putExtra("cnum", cmap.get(name));
                 System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
-//
-//
             }
         });
 
@@ -284,7 +296,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                     PostResponseAsyncTask AddTask =
                             new PostResponseAsyncTask(userhome.this, postData2);
                     System.out.println("Before Adding user...");
-                    AddTask.execute("http://172.30.127.159:8088/udhaar-db/add_user.php");
+                    AddTask.execute("http://172.20.41.168:8088/udhaar-db/add_user.php");
                     System.out.println("After Sending Request...");
                 }
                 break;

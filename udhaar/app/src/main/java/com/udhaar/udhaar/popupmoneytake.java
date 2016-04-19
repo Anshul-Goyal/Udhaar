@@ -61,7 +61,7 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
                 PostResponseAsyncTask Task =
                         new PostResponseAsyncTask(popupmoneytake.this, postData);
                 System.out.println("Before Logging in");
-                Task.execute("http://172.30.127.159:8088/udhaar-db/popupmoneytake.php");
+                Task.execute("http://172.20.41.168:8088/udhaar-db/popupmoneytake.php");
                 System.out.println("After Logging in....");
             }
         });

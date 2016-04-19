@@ -40,13 +40,13 @@ public class userprofile extends AppCompatActivity {
         com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
         DatabaseHandler ob = new DatabaseHandler(this);
         contact = ob.getContact(cnum);
-        int finalmoney=contact.getMoney();
+        int finalm=contact.getMoney();
         TextView t2 = (TextView)findViewById(R.id.textmoney);
+        String finalmoney = String.valueOf(finalm);
         t2.setText(finalmoney);
 
 
-
-        if(finalmoney < 0)
+        if(finalmoney.startsWith("-"))
         {
             t2.setTextColor(Color.RED);
         }

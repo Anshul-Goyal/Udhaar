@@ -34,15 +34,19 @@
             $finalmoney = $m + $money;
         }
 
-         $query = "update trans set money = $finalmoney where (id1='$id1' and id2='$id2')
-                   or (id1='$id2' and id2='$id1')"; 
+         $query = "update trans set money = $finalmoney 
+                      where (id1='$id1' and id2='$id2') or (id1='$id2' and id2='$id1') "; 
         
         $result = mysqli_query($conn, $query);
 
         if($result)
         {
+            $q = "update trans set tym=CURRENT_TIMESTAMP where (id1='$id1' and id2='$id2') or (id1='$id2' and id2='$id1');";
+            $result = mysqli_query($conn, $query);
+            date_default_timezone_set('Asia/Kolkata');
             $response['success']=1;
-            $response['finalmoney']=$finalmoney;
+            $response['money']=$finalmoney;
+            $response['tym'] = date('Y-m-d G-i-s');
             echo json_encode($response);
         }
         else

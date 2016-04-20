@@ -63,7 +63,7 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
                 PostResponseAsyncTask Task =
                         new PostResponseAsyncTask(popupmoneytake.this, postData);
                 System.out.println("Before Logging in");
-                Task.execute("http://172.20.41.168:8088/udhaar-db/popupmoneytake.php");
+                Task.execute("http://"+login.ip+"/udhaar-db/popupmoneytake.php");
                 System.out.println("After Logging in....");
             }
         });
@@ -84,9 +84,9 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
         try {
             if (jObj.getString("success").equals("1"))
             {
-                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("mob_no"),extras.getInt("money"),extras.getString("tym"));
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"));
                 DatabaseHandler ob = new DatabaseHandler(this);
-                ob.updateContact(contact,1);
+                ob.updateContact(contact);
 
                 DatabaseHandler db = new DatabaseHandler(this);
                 Log.d("Reading: ", "Reading all contacts..");
@@ -101,7 +101,9 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
                 Toast.makeText(this, "Money Taken Successfully",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, userhome.class);
+                userprofile.upobj.finish();
                 startActivity(intent);
+
                 this.finish();
             }
             else

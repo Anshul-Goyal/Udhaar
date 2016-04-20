@@ -117,7 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
+        if (cursor != null&&cursor.moveToFirst()) {
             do {
                 Contacts contact = new Contacts();
                 contact.setID(Integer.parseInt(cursor.getString(0)));
@@ -150,7 +150,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    updateContact()
     // Updating single contact
     public int updateContact(Contacts contact) {
+
         SQLiteDatabase db = this.getWritableDatabase();
+
+
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, contact.getName());
@@ -167,6 +170,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Updating single contact
     public int updateContact(Contacts contact , int ismob) {
+        System.out.println("Inside Update Contact" + contact.getName()+contact.getMoney());
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

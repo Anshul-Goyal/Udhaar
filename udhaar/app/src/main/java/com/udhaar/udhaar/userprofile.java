@@ -13,12 +13,14 @@ import android.widget.TextView;
 public class userprofile extends AppCompatActivity {
     String cnum;
     String name;
-//    int id,mon;
+    public static userprofile upobj;
+    //    int id,mon;
     com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts();
 //    String finalmoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        upobj=this;
         setContentView(R.layout.activity_userprofile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class userprofile extends AppCompatActivity {
     public void popupmoneygive (View view){
 
         Intent i = new Intent(this, popupmoneygive.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.putExtra("cnum",cnum);
         i.putExtra("name" , name);
         i.putExtra("id",contact.getID());
@@ -77,6 +81,8 @@ public class userprofile extends AppCompatActivity {
     public void popupmoneytake (View view){
 
         Intent i = new Intent(this, popupmoneytake.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.putExtra("cnum",cnum);
         i.putExtra("name" , name);
         i.putExtra("id",contact.getID());

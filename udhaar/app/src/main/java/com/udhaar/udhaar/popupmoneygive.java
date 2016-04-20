@@ -64,7 +64,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                 PostResponseAsyncTask Task =
                         new PostResponseAsyncTask(popupmoneygive.this, postData);
                 System.out.println("Before Logging in");
-                Task.execute("http://172.20.41.168:8088/udhaar-db/popupmoneygive.php");
+                Task.execute("http://"+login.ip+"/udhaar-db/popupmoneygive.php");
                 System.out.println("After Logging in....");
             }
         });
@@ -87,9 +87,10 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
             if (jObj.getString("success").equals("1"))
             {
 
-                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("mob_no"),extras.getInt("money"),extras.getString("tym"));
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"));
+               //PROBLEM HERE - EXTRAS.GETINT(MONEY) is not getting updated .. perhaps got to create a new intent
                 DatabaseHandler ob = new DatabaseHandler(this);
-                ob.updateContact(contact,1);
+                ob.updateContact(contact);
 
                 DatabaseHandler db = new DatabaseHandler(this);
                 Log.d("Reading: ", "Reading all contacts..");
@@ -104,7 +105,9 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                 Toast.makeText(this, "Money Added Successfully",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, userhome.class);
+                userprofile.upobj.finish();
                 startActivity(intent);
+
                 this.finish();
             }
             else

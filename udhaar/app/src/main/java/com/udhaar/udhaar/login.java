@@ -20,10 +20,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class login extends AppCompatActivity implements AsyncResponse {
+    public static String ip = "172.30.127.159:8088";
 
     EditText etmobile;
     Button btnLogin;
-    private String ip="172.20.41.168:8088";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 PostResponseAsyncTask loginTask =
                         new PostResponseAsyncTask(login.this, postData);
                 System.out.println("Before Logging in");
-                loginTask.execute("http://172.20.41.168:8088/udhaar-db/registration.php");
+                loginTask.execute("http://"+ip+"/udhaar-db/registration.php");
                 System.out.println("After Logging in....");
             }
         });

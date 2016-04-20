@@ -39,6 +39,7 @@ import android.widget.Toast;
 import android.view.WindowManager;
 
 public class userhome extends ListActivity implements AsyncResponse {
+
     Map<String, String> cmap = new HashMap<String, String>();
     String namearray[];
     private SharedPreferences preferenceSettings;
@@ -50,7 +51,7 @@ public class userhome extends ListActivity implements AsyncResponse {
 
 
     ArrayList<HashMap<String, String>> ContactList;
-    private static String url_all_products = "http://172.20.41.168:8088/udhaar-db/get_list.php";
+    private static String url_all_products = "http://"+login.ip+"/udhaar-db/get_list.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MOB_NO = "mob_no";
     private static final String TAG_MONEY = "money";
@@ -130,18 +131,22 @@ public class userhome extends ListActivity implements AsyncResponse {
 
                 // selected item
                 String name = ((TextView) view).getText().toString();
-                System.out.println("Name is ::::::::: "+name);
+                System.out.println("Name is ::::::::: " + name);
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), userprofile.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 // sending data to new activity
                 i.putExtra("name", name);
                 i.putExtra("cnum", cmap.get(name));
                 System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
+                userhome.this.finish();
+
             }
         });
 
-//        this.finish();
+
 
     }
 
@@ -297,7 +302,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                     PostResponseAsyncTask AddTask =
                             new PostResponseAsyncTask(userhome.this, postData2);
                     System.out.println("Before Adding user...");
-                    AddTask.execute("http://172.20.41.168:8088/udhaar-db/add_user.php");
+                    AddTask.execute("http://"+login.ip+"/udhaar-db/add_user.php");
                     System.out.println("After Sending Request...");
                 }
                 break;

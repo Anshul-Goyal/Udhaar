@@ -23,6 +23,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
 
     EditText etmobile;
     Button btnLogin;
+    private String ip="172.20.41.168:8088";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

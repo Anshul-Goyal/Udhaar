@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class login extends AppCompatActivity implements AsyncResponse {
-    public static String ip = "172.30.127.159:8088";
+    public static String ip = "udhaar.site88.net";
 
     EditText etmobile;
     Button btnLogin;
@@ -49,7 +49,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 PostResponseAsyncTask loginTask =
                         new PostResponseAsyncTask(login.this, postData);
                 System.out.println("Before Logging in");
-                loginTask.execute("http://"+ip+"/udhaar-db/registration.php");
+                loginTask.execute("http://"+ip+"/registration.php");
                 System.out.println("After Logging in....");
             }
         });

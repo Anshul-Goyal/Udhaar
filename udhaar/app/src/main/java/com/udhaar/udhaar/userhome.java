@@ -51,7 +51,7 @@ public class userhome extends ListActivity implements AsyncResponse {
 
 
     ArrayList<HashMap<String, String>> ContactList;
-    private static String url_all_products = "http://"+login.ip+"/udhaar-db/get_list.php";
+    private static String url_all_products = "http://"+login.ip+"/get_list.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MOB_NO = "mob_no";
     private static final String TAG_MONEY = "money";
@@ -302,7 +302,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                     PostResponseAsyncTask AddTask =
                             new PostResponseAsyncTask(userhome.this, postData2);
                     System.out.println("Before Adding user...");
-                    AddTask.execute("http://"+login.ip+"/udhaar-db/add_user.php");
+                    AddTask.execute("http://"+login.ip+"/add_user.php");
                     System.out.println("After Sending Request...");
                 }
                 break;

@@ -100,8 +100,11 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
 
                 Toast.makeText(this, "Money Taken Successfully",
                         Toast.LENGTH_LONG).show();
+                userhome.uhobj.finish();
                 Intent intent = new Intent(this, userhome.class);
                 userprofile.upobj.finish();
+
+                userhome.var=123;
                 startActivity(intent);
 
                 this.finish();

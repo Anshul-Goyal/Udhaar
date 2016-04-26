@@ -42,6 +42,7 @@ public class userhome extends ListActivity implements AsyncResponse {
 
     Map<String, String> cmap = new HashMap<String, String>();
     String namearray[];
+    public static userhome uhobj;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     String txtid="";
@@ -66,6 +67,11 @@ public class userhome extends ListActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userhome);
+        uhobj=this;
+        if(var!=123)
+        var=0;
+        else
+        var=1;
 
         preferenceSettings = getPreferences(mode);
         String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
@@ -148,8 +154,8 @@ public class userhome extends ListActivity implements AsyncResponse {
                 i.putExtra("cnum", cmap.get(name));
                 System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
-                if(var!=0)
-                userhome.this.finish();
+                if(var != 0)
+                    userhome.this.finish();
                 var++;
 
             }

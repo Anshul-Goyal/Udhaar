@@ -19,6 +19,7 @@ public class userprofile extends AppCompatActivity {
 //    String finalmoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        userhome.var=0;
         super.onCreate(savedInstanceState);
         upobj=this;
         setContentView(R.layout.activity_userprofile);

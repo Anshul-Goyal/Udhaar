@@ -7,19 +7,19 @@
         $mob_no = $_POST['user_mob_no'];
 
         $query = "select id from  user where mob_no = '$mob_no'";
-        $result = mysqli_query($conn, $query);
-        $rc = mysqli_num_rows($result);
+        $result = @mysql_query($query , $conn );
+        $rc = @mysql_num_rows($result);
         // $query = "select id from user where mob_no = '$mob_no'";
-        // $result = mysqli_query($conn, $query);
+        // $result = @mysql_query($conn, $query);
         if($rc==1)
         {
-		    $res = mysqli_fetch_array($result);
+		    $res = @mysql_fetch_array($result);
 		    $id2 = $res['id'];
 		    $query = "insert into trans (id1,id2,money) values ($id1 ,$id2,0 )";
-		    $result = mysqli_query($conn, $query);
+		    $result = @mysql_query($query , $conn);
 		     
 		            // $q = "select id from user where mob_no='$mob_no'";
-		            // $result = mysqli_query($conn, $q);
+		            // $result = @mysql_query($conn, $q);
 		   	$response['success'] = 2;
 		   	$response['status']='true';
 		   	$response['rc'] = $rc; 
@@ -44,4 +44,3 @@
 
 			
 ?>
-s

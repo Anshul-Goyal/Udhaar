@@ -46,6 +46,7 @@ public class userhome extends ListActivity implements AsyncResponse {
     private SharedPreferences.Editor preferenceEditor;
     String txtid="";
     private static final int mode=0;
+    public static int var=0;
 
     private static final int PICK_CONTACT = 1; // request code integer
 
@@ -78,6 +79,12 @@ public class userhome extends ListActivity implements AsyncResponse {
         listTask.execute(url_all_products);
 
 
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        var=0;
     }
 
 
@@ -141,7 +148,9 @@ public class userhome extends ListActivity implements AsyncResponse {
                 i.putExtra("cnum", cmap.get(name));
                 System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
+                if(var!=0)
                 userhome.this.finish();
+                var++;
 
             }
         });
@@ -188,6 +197,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                             com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"));
                             DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);
+                            ob.updateContact(contact);
                             System.out.println("Object being added is..... : "+object.getInt("money"));
                         }
                     }

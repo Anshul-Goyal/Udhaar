@@ -1,5 +1,6 @@
 <?PHP 
     include_once("connection.php"); 
+    mysql_select_db("a9929614_udhaar")or die("cannot select DB");
     $response = array();
      if( isset($_POST['txtid1']) && isset($_POST['txtmob']) && isset($_POST['txtmoney']) )
     {
@@ -10,18 +11,18 @@
 
         $query = "Select id from user where mob_no='$id2'"; 
         
-        $result = mysqli_query($conn, $query);
+        $result = @mysql_query($query , $conn);
 
-        $res=mysqli_fetch_array($result);
+        $res=@mysql_fetch_array($result);
 
         $id2=$res['id']; 
 
         $query = "Select id1,id2,money from
         trans where (id1='$id1' and id2='$id2') or (id1='$id2' and id2='$id1') "; 
         
-        $result = mysqli_query($conn, $query);
+        $result = @mysql_query( $query , $conn);
 
-        $res=mysqli_fetch_array($result);
+        $res=@mysql_fetch_array($result);
 
         $m = $res['money'];
         $finalmoney=0;
@@ -37,12 +38,12 @@
          $query = "update trans set money = $finalmoney 
                       where (id1='$id1' and id2='$id2') or (id1='$id2' and id2='$id1') "; 
         
-        $result = mysqli_query($conn, $query);
+        $result = @mysql_query($query , $conn);
 
         if($result)
         {
             $q = "update trans set tym=CURRENT_TIMESTAMP where (id1='$id1' and id2='$id2') or (id1='$id2' and id2='$id1');";
-            $result = mysqli_query($conn, $query);
+            $result = @mysql_query( $query , $conn);
             date_default_timezone_set('Asia/Kolkata');
             $response['success']=1;
             $response['money']=$finalmoney;

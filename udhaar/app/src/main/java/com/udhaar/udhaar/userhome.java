@@ -42,6 +42,7 @@ public class userhome extends ListActivity implements AsyncResponse {
 
     Map<String, String> cmap = new HashMap<String, String>();
     String namearray[];
+    String tymstamp[];
     public static userhome uhobj;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
@@ -200,6 +201,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                             System.out.println("Name is : " + name);
                             namearray[i]=name;
                             cmap.put(namearray[i],object.getString("mob_no"));
+                            tymstamp[i] = object.getString("tym");
                             com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"));
                             DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);

@@ -42,6 +42,8 @@ public class userhome extends ListActivity implements AsyncResponse {
 
     Map<String, String> cmap = new HashMap<String, String>();
     String namearray[];
+    String tymstamp[];
+    public static userhome uhobj;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     String txtid="";
@@ -66,6 +68,11 @@ public class userhome extends ListActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userhome);
+        uhobj=this;
+        if(var!=123)
+        var=0;
+        else
+        var=1;
 
         preferenceSettings = getPreferences(mode);
         String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
@@ -148,8 +155,8 @@ public class userhome extends ListActivity implements AsyncResponse {
                 i.putExtra("cnum", cmap.get(name));
                 System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
-                if(var!=0)
-                userhome.this.finish();
+                if(var != 0)
+                    userhome.this.finish();
                 var++;
 
             }
@@ -194,6 +201,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                             System.out.println("Name is : " + name);
                             namearray[i]=name;
                             cmap.put(namearray[i],object.getString("mob_no"));
+                            tymstamp[i] = object.getString("tym");
                             com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"));
                             DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);

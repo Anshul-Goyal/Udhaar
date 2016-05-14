@@ -1,7 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+
 android {
+    repositories {
+       jcenter()
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
@@ -23,6 +27,11 @@ android {
     }
 }
 
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -33,5 +42,4 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile "com.google.android.gms:play-services-location:8.3.0"
-
 }

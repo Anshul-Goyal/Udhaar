@@ -1,8 +1,7 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.app;
 
 import android.app.Application;
-
-import info.androidhive.gcm.helper.MyPreferenceManager;
+import com.udhaar.udhaar.helper.MyPreferenceManager;
 
 public class MyApplication extends Application {
 

@@ -1,4 +1,4 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.gcm;
 
 import android.content.Intent;
 import android.util.Log;

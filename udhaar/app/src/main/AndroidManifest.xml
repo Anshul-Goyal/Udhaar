@@ -112,10 +112,10 @@
             </intent-filter>
         </service>
 
-        <!-- END Added for GCM -->
+         END Added for GCM
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".HomeActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

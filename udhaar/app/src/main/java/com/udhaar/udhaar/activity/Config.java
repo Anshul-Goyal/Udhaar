@@ -1,4 +1,4 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.activity;
 
 public class Config {
 

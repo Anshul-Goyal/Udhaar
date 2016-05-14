@@ -1,4 +1,4 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.gcm;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,8 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
-import info.androidhive.gcmtest.activity.MainActivity;
-import info.androidhive.gcmtest.app.Config;
+import com.udhaar.udhaar.activity.MainActivity;
+import com.udhaar.udhaar.activity.Config;
 
 public class MyGcmPushReceiver extends GcmListenerService {
 

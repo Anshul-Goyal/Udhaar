@@ -1,4 +1,4 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

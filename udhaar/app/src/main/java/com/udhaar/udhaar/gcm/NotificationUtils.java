@@ -1,4 +1,4 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.gcm;
 
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -29,9 +29,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import info.androidhive.gcm.R;
-import info.androidhive.gcm.app.Config;
-import info.androidhive.gcm.app.MyApplication;
+import com.udhaar.udhaar.R;
+import com.udhaar.udhaar.activity.Config;
+import com.udhaar.udhaar.app.MyApplication;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.udhaar.udhaar;
+package com.udhaar.udhaar.gcm;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import com.google.android.gms.iid.InstanceID;
 
 import java.io.IOException;
 
-import info.androidhive.gcm.R;
-import info.androidhive.gcm.app.Config;
+import com.udhaar.udhaar.R;
+import com.udhaar.udhaar.activity.Config;
 
 
 public class GcmIntentService extends IntentService {

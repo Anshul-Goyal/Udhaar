@@ -1,5 +1,7 @@
 package com.udhaar.udhaar;
 
+import android.app.Application;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,10 @@ import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.EditText;
 import android.content.SharedPreferences;
+
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -99,5 +105,40 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
+
+
+    class udhaarapp extends Application implements OneSignal.NotificationOpenedHandler {
+
+        @Override
+        public void onConfigurationChanged(Configuration newConfig) {
+            super.onConfigurationChanged(newConfig);
+        }
+
+        @Override
+        public void onCreate() {
+            super.onCreate();
+            OneSignal.startInit(this)
+                    .setNotificationOpenedHandler(new notificationhandler())
+                    .init();
+        }
+
+        @Override
+        public void notificationOpened(String s,JSONObject ob,boolean b)
+        {
+
+        }
+
+        @Override
+        public void onLowMemory() {
+            super.onLowMemory();
+        }
+
+        @Override
+        public void onTerminate() {
+            super.onTerminate();
+        }
+
+    }
+
 
 }

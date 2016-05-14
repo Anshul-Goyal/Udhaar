@@ -1,5 +1,7 @@
 package com.udhaar.udhaar;
 
+import android.app.Application;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -13,13 +15,17 @@ import android.content.Intent;
 import android.widget.EditText;
 import android.content.SharedPreferences;
 
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
+
 public class HomeActivity extends AppCompatActivity {
 
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     boolean firstlogin=true;
     private static final int mode=0;
-
+    com.udhaar.udhaar.udhaarapp ob = new com.udhaar.udhaar.udhaarapp();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new notificationhandler())
+                .init();
+
         preferenceSettings = getPreferences(mode);
         boolean isfirstlogin = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).getBoolean("firstlogin",true);
         if(isfirstlogin)
@@ -99,5 +110,40 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
+
+
+    class udhaarapp extends Application{
+
+        @Override
+        public void onConfigurationChanged(Configuration newConfig) {
+            super.onConfigurationChanged(newConfig);
+        }
+
+        @Override
+        public void onCreate() {
+            super.onCreate();
+            OneSignal.startInit(this)
+                    .setNotificationOpenedHandler(new notificationhandler())
+                    .init();
+        }
+//
+//        @Override
+//        public void notificationOpened(String s,JSONObject ob,boolean b)
+//        {
+//
+//        }
+
+        @Override
+        public void onLowMemory() {
+            super.onLowMemory();
+        }
+
+        @Override
+        public void onTerminate() {
+            super.onTerminate();
+        }
+
+    }
+
 
 }

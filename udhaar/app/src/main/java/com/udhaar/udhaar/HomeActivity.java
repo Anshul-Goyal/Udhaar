@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     private SharedPreferences.Editor preferenceEditor;
     boolean firstlogin=true;
     private static final int mode=0;
-
+    com.udhaar.udhaar.udhaarapp ob = new com.udhaar.udhaar.udhaarapp();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new notificationhandler())
+                .init();
+
         preferenceSettings = getPreferences(mode);
         boolean isfirstlogin = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).getBoolean("firstlogin",true);
         if(isfirstlogin)
@@ -107,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    class udhaarapp extends Application implements OneSignal.NotificationOpenedHandler {
+    class udhaarapp extends Application{
 
         @Override
         public void onConfigurationChanged(Configuration newConfig) {
@@ -121,12 +126,12 @@ public class HomeActivity extends AppCompatActivity {
                     .setNotificationOpenedHandler(new notificationhandler())
                     .init();
         }
-
-        @Override
-        public void notificationOpened(String s,JSONObject ob,boolean b)
-        {
-
-        }
+//
+//        @Override
+//        public void notificationOpened(String s,JSONObject ob,boolean b)
+//        {
+//
+//        }
 
         @Override
         public void onLowMemory() {

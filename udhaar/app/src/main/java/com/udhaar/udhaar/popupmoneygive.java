@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.onesignal.OneSignal;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -87,7 +89,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
             if (jObj.getString("success").equals("1"))
             {
 
-                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"));
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"), jObj.getString("oneid"));
                //PROBLEM HERE - EXTRAS.GETINT(MONEY) is not getting updated .. perhaps got to create a new intent
                 DatabaseHandler ob = new DatabaseHandler(this);
                 ob.updateContact(contact);
@@ -97,9 +99,15 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                 List<Contacts> contacts = db.getAllContacts();
 
                 for (com.udhaar.udhaar.Contacts cn : contacts) {
-                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime();
+                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime()+" , oneid: "+cn.getoneid();
                     // Writing Contacts to log
                     Log.d("Name: ", log);
+                }
+
+                try {
+                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'Test Message'}, 'include_player_ids': ['" + HomeActivity.oneid + "']}"), null);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
                 Toast.makeText(this, "Money Added Successfully",

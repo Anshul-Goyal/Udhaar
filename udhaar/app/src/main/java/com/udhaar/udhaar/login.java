@@ -44,6 +44,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 HashMap postData = new HashMap();
                 postData.put("btnLogin", "Login");
                 postData.put("mobile", "android");
+                postData.put("oneid",(HomeActivity.oneid).toString());
                 postData.put("txtmobile", etmobile.getText().toString());
 
                 PostResponseAsyncTask loginTask =
@@ -74,6 +75,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 Toast.makeText(this, "Account created Successfully",
                         Toast.LENGTH_LONG).show();
                 PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtid", jObj.getString("id")).commit();
+                PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("oneid", HomeActivity.oneid).commit();
                 PreferenceManager.getDefaultSharedPreferences(login.this).edit().putBoolean("firstlogin",false).commit();
                 Intent intent = new Intent(this, userhome.class);
                 startActivity(intent);

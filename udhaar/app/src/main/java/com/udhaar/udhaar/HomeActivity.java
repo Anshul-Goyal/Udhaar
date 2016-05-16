@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +21,7 @@ import com.onesignal.OneSignal;
 import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
-
+    static String oneid;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     boolean firstlogin=true;
@@ -37,6 +38,17 @@ public class HomeActivity extends AppCompatActivity {
         OneSignal.startInit(this)
                 .setNotificationOpenedHandler(new notificationhandler())
                 .init();
+
+        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+            @Override
+            public void idsAvailable(String userId, String registrationId) {
+                Log.d("debug", "User:" + userId);
+                oneid = userId;
+                if (registrationId != null)
+                    Log.d("debug", "registrationId:" + registrationId);
+
+            }
+        });
 
         preferenceSettings = getPreferences(mode);
         boolean isfirstlogin = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).getBoolean("firstlogin",true);

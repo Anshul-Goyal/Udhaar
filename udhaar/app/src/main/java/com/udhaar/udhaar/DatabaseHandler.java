@@ -30,6 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_PH_NO = "phone_number";
     private static final String KEY_MONEY = "money";
     private static final String KEY_TIME = "tym";
+    private static final String KEY_ONEID = "oneid";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_PH_NO + " TEXT,"+KEY_MONEY +" INTEGER ," +KEY_TIME +" TIMESTAMP " +  ")";
+                + KEY_PH_NO + " TEXT,"+KEY_MONEY +" INTEGER ," +KEY_TIME +" TIMESTAMP ," + KEY_ONEID + " TEXT " + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -66,6 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_ID,contact.getID());
         values.put(KEY_MONEY, contact.getMoney());
         values.put(KEY_TIME, contact.getTime());
+        values.put(KEY_ONEID, contact.getoneid());
 
         // Inserting Row
         db.insert(TABLE_CONTACTS, null, values);
@@ -79,13 +81,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-                        KEY_NAME, KEY_PH_NO ,KEY_MONEY , KEY_TIME }, KEY_ID + "=?",
+                        KEY_NAME, KEY_PH_NO ,KEY_MONEY , KEY_TIME ,KEY_ONEID }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         Contacts contact = new Contacts(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2),Integer.parseInt(cursor.getString(3)) , cursor.getString(4));
+                cursor.getString(1), cursor.getString(2),Integer.parseInt(cursor.getString(3)) , cursor.getString(4), cursor.getString(5));
         // return contact
         return contact;
     }
@@ -94,13 +96,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_CONTACTS, new String[]{KEY_ID,
-                        KEY_NAME, KEY_PH_NO, KEY_MONEY , KEY_TIME}, KEY_PH_NO + "=?",
+                        KEY_NAME, KEY_PH_NO, KEY_MONEY , KEY_TIME,KEY_ONEID}, KEY_PH_NO + "=?",
                 new String[]{String.valueOf(mob_no)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         Contacts contact = new Contacts(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2),Integer.parseInt(cursor.getString(3)), cursor.getString(4) );
+                cursor.getString(1), cursor.getString(2),Integer.parseInt(cursor.getString(3)), cursor.getString(4),cursor.getString(5) );
         // return contact
         return contact;
     }
@@ -125,6 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 contact.setPhoneNumber(cursor.getString(2));
                 contact.setMoney(Integer.parseInt(cursor.getString(3)));
                 contact.setTime(cursor.getString(4));
+                contact.setTime(cursor.getString(5));
                 // Adding contact to list
                 contactList.add(contact);
             } while (cursor.moveToNext());
@@ -161,6 +164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_MONEY, contact.getMoney());
         values.put(KEY_TIME, contact.getTime());
         values.put(KEY_ID, contact.getID());
+        values.put(KEY_ONEID, contact.getoneid());
 
         // updating row
         return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
@@ -179,6 +183,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_MONEY, contact.getMoney());
         values.put(KEY_TIME, contact.getTime());
         values.put(KEY_ID, contact.getID());
+        values.put(KEY_ONEID, contact.getoneid());
 
         // updating row
         return db.update(TABLE_CONTACTS, values, KEY_PH_NO + " = ?",

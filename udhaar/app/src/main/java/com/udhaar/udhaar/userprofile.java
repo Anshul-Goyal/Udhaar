@@ -71,11 +71,12 @@ public class userprofile extends AppCompatActivity {
         Intent i = new Intent(this, popupmoneygive.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.putExtra("cnum",cnum);
+        i.putExtra("cnum", cnum);
         i.putExtra("name" , name);
         i.putExtra("id",contact.getID());
         i.putExtra("tym",contact.getTime());
         i.putExtra("money",contact.getMoney());
+        i.putExtra("oneid",contact.getoneid());
         startActivity(i);
     }
 
@@ -89,6 +90,7 @@ public class userprofile extends AppCompatActivity {
         i.putExtra("id",contact.getID());
         i.putExtra("tym",contact.getTime());
         i.putExtra("money",contact.getMoney());
+        i.putExtra("oneid",contact.getoneid());
         startActivity(i);
     }
 

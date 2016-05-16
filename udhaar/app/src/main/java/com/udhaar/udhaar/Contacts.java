@@ -12,6 +12,7 @@ public class Contacts {
     String _phone_number;
     int _money;
     String _time;
+    String _oneid;
 
     // Empty constructor
     public Contacts(){
@@ -23,6 +24,15 @@ public class Contacts {
         this._name = name;
         this._phone_number = _phone_number;
         this._money=money;
+    }
+
+    public Contacts(int id, String name, String _phone_number,int money ,String time,String oneid){
+        this._id = id;
+        this._name = name;
+        this._phone_number = _phone_number;
+        this._money=money;
+        this._time = time;
+        this._oneid = oneid;
     }
 
     public Contacts(int id, String name, String _phone_number,int money ,String time){
@@ -87,9 +97,15 @@ public class Contacts {
 
     public void setTime(String time) {  this._time = time;  }
 
-
     // setting id
     public void setMoney(int money){
         this._money = money;
     }
+
+    public String getoneid(){
+        return this._oneid;
+    }
+
+
+    public void setoneid(String time) {  this._oneid = time;  }
 }

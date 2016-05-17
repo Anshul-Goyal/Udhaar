@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 public class login extends AppCompatActivity implements AsyncResponse {
     public static String ip = "udhaar.site88.net";
+//   public static String ip = "192.168.0.8:8088/udhaar-db";
 
     EditText etmobile;
     Button btnLogin;

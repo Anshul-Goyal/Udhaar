@@ -29,7 +29,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +44,10 @@ import android.view.WindowManager;
 public class userhome extends ListActivity implements AsyncResponse {
 
     Map<String, String> cmap = new HashMap<String, String>();
-    String namearray[];
-    String tymstamp[] = new String[50];
+    String namearrayrecent[];
+    String namearrayall[];
+    String namearraybygone[];
+    String tymstamp[];
     public static userhome uhobj;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
@@ -114,10 +119,10 @@ public class userhome extends ListActivity implements AsyncResponse {
         return contactName;
     }
 
-    public void display() {
+    public void display(String darray[]) {
         System.out.println("inside display");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.activity_listview,namearray);
+                R.layout.activity_listview,darray);
         //setlistAdapter(adapter);
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(adapter);
@@ -155,7 +160,7 @@ public class userhome extends ListActivity implements AsyncResponse {
                 i.putExtra("cnum", cmap.get(name));
                 System.out.println("Number is ::::::::: " + cmap.get(name));
                 startActivity(i);
-                if(var != 0)
+                if (var != 0)
                     userhome.this.finish();
                 var++;
 
@@ -166,6 +171,55 @@ public class userhome extends ListActivity implements AsyncResponse {
 
     }
 
+    public void sortrecent()
+    {
+        int size=tymstamp.length;
+        Timestamp temp1;
+        String temp2;
+        Timestamp t[]=new Timestamp[size];
+        for(int i=0;i<size;i++) {
+            //System.out.println(tymstamp[i] + " --- " + namearray[i]);
+            t[i] = Timestamp.valueOf(tymstamp[i]);
+        }
+        for(int i=0;i<size;i++)
+        {
+            for(int j=i+1;j<size;j++)
+            {
+                if(t[i].compareTo(t[j])<0)
+                {
+                    temp1 = t[i];
+                    t[i] = t[j];
+                    t[j] = temp1;               // swapping timestamps objects
+
+                    temp2 = tymstamp[i];
+                    tymstamp[i] = tymstamp[j];
+                    tymstamp[j] = temp2;        //swapping timestamp array
+
+                    temp2 = namearrayrecent[i];
+                    namearrayrecent[i] = namearrayrecent[j];
+                    namearrayrecent[j] = temp2;        //swapping timestamp array
+
+                }
+            }
+        }
+//        System.out.println("inside sort");
+//        for(int i=0;i<size;i++)
+//        {
+//            System.out.println(t[i].toString() + " - -- " + tymstamp[i] + " --- " + namearrayrecent[i] );
+//        }
+
+
+    }
+
+    void sortbygone()
+    {
+        int j=0;
+        for(int i=namearrayrecent.length-1;i>=0;i--)
+        {
+            namearraybygone[j]=namearrayrecent[i];
+            j++;
+        }
+    }
 
 
 
@@ -188,7 +242,10 @@ public class userhome extends ListActivity implements AsyncResponse {
                     JSONArray person= jObj.getJSONArray("person");
                     int count = jObj.getInt(TAG_COUNT);
                     System.out.println(count);
-                    namearray=new String[person.length()];
+                    namearrayrecent=new String[person.length()];
+                    namearrayall=new String[person.length()];
+                    namearraybygone=new String[person.length()];
+                    tymstamp=new String[person.length()];
                     if(person != null) {
                         String[] mob_nos = new String[person.length()];
                         System.out.println(person.toString());
@@ -199,12 +256,10 @@ public class userhome extends ListActivity implements AsyncResponse {
                             System.out.println(object.getString("mob_no")); // contact number to be used to get name from contacts
                             String name=getContactName(this,object.getString("mob_no"));
                             System.out.println("Name is : " + name);
-                            namearray[i]=name;
-                            System.out.println("Name is : " + name);
-                            cmap.put(namearray[i], object.getString("mob_no"));
-                            System.out.println("Name is : " + name);
-                            tymstamp[i] = object.getString("tym");
-                            System.out.println("Name is : " + name);
+                            namearrayrecent[i]=name;
+                            namearrayall[i]=name;
+                            tymstamp[i]=object.getString("tym");
+                            cmap.put(namearrayall[i],object.getString("mob_no"));
                             com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"),HomeActivity.oneid);
                             DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);
@@ -213,7 +268,10 @@ public class userhome extends ListActivity implements AsyncResponse {
                         }
                     }
 
-                    display();
+                    Arrays.sort(namearrayall);
+                    display(namearrayall);
+                    sortrecent();                         //namearrayrecent ready
+                    sortbygone();
 
                 }
                 catch (JSONException e) {
@@ -355,8 +413,23 @@ public class userhome extends ListActivity implements AsyncResponse {
         return cnum;
     }
 
+    public void all (View view) {
+
+        display(namearrayall);
+    }
+
+    public void recent (View view) {
+        display(namearrayrecent);
+    }
+
+    public void bygone (View view) {
+        display(namearraybygone);
+    }
+
 
 }
+
+
 
 
 

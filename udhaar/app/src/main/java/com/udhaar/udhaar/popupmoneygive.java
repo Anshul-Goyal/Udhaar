@@ -27,6 +27,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
     String cnum;
     Button btngive;
     Bundle extras;
+    String money;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                 postData.put("txtid1", id);
                 postData.put("txtmob", cnum);
                 EditText editText = (EditText) findViewById(R.id.editText4);
-                String money = editText.getText().toString();
+                money = editText.getText().toString();
                 postData.put("txtmoney", money);
                 PostResponseAsyncTask Task =
                         new PostResponseAsyncTask(popupmoneygive.this, postData);
@@ -89,7 +90,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
             if (jObj.getString("success").equals("1"))
             {
 
-                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"));
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"),extras.getString("oneid"));
                //PROBLEM HERE - EXTRAS.GETINT(MONEY) is not getting updated .. perhaps got to create a new intent
                 DatabaseHandler ob = new DatabaseHandler(this);
                 ob.updateContact(contact);
@@ -99,16 +100,24 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                 List<Contacts> contacts = db.getAllContacts();
 
                 for (com.udhaar.udhaar.Contacts cn : contacts) {
-                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime();
+                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime()+" ,oneid: "+cn.getoneid();
                     // Writing Contacts to log
                     Log.d("Name: ", log);
                 }
 
+//                try {
+//                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'Test Message'}, 'include_player_ids': ['" + jObj.getString("oneid") + "']}"), null);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
                 try {
-                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'Test Message'}, 'include_player_ids': ['" + HomeActivity.oneid + "']}"), null);
+                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'@Name@ has taken Rs."+money+"from you.'Final Balance is: "+jObj.getString("money")+" }, 'include_player_ids': ['" + HomeActivity.oneid +extras.getString("oneid") + "']}"), null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+
 
                 Toast.makeText(this, "Money Added Successfully",
                         Toast.LENGTH_LONG).show();

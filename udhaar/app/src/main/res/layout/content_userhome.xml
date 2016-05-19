@@ -51,7 +51,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#3F51B5"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:onClick="all" />
 
     <Button
         android:layout_width="wrap_content"
@@ -62,7 +63,8 @@
         android:layout_toRightOf="@+id/button2"
         android:layout_toEndOf="@+id/button2"
         android:background="#3F51B5"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:onClick="recent" />
 
     <Button
         android:layout_width="wrap_content"
@@ -73,7 +75,8 @@
         android:layout_toRightOf="@+id/button3"
         android:layout_toEndOf="@+id/button3"
         android:background="#3F51B5"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:onClick="bygone" />
 
     <Button
         android:layout_width="wrap_content"

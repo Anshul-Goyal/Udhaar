@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/new_bckgrnd">
+        android:background="@drawable/background">
 
         <EditText
             android:layout_width="fill_parent"
@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="35dp"
             android:layout_marginRight="10dp" />
 
         <!--<Button-->
@@ -63,9 +63,9 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:layout_marginBottom="88dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="35dp" />
 
 
     </RelativeLayout>

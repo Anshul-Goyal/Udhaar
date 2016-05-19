@@ -117,6 +117,7 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
                     e.printStackTrace();
                 }
 
+                System.out.println(HomeActivity.oneid + "\n          " + extras.getString("oneid"));
 
 
                 Toast.makeText(this, "Money Added Successfully",

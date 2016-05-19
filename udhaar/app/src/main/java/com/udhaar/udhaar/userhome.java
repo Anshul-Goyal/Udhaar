@@ -260,11 +260,11 @@ public class userhome extends ListActivity implements AsyncResponse {
                             namearrayall[i]=name;
                             tymstamp[i]=object.getString("tym");
                             cmap.put(namearrayall[i],object.getString("mob_no"));
-                            com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"),HomeActivity.oneid);
+                            com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"),object.getString("oneid"));
                             DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);
                             ob.updateContact(contact);
-                            System.out.println("Object being added is..... : "+object.getInt("money"));
+                            System.out.println("Object being added is..... : "+object.getInt("money")+ "id :    "+object.getString("oneid"));
                         }
                     }
 

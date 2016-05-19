@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.onesignal.OneSignal;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +26,7 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
     String cnum;
     Button btngive;
     Bundle extras;
+    String money;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +61,7 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
                 postData.put("txtid1", id);
                 postData.put("txtmob", cnum);
                 EditText editText = (EditText) findViewById(R.id.editText5);
-                String money = editText.getText().toString();
+                 money = editText.getText().toString();
                 postData.put("txtmoney", money);
                 PostResponseAsyncTask Task =
                         new PostResponseAsyncTask(popupmoneytake.this, postData);
@@ -84,7 +87,7 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
         try {
             if (jObj.getString("success").equals("1"))
             {
-                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"));
+                com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(extras.getInt("id"),extras.getString("name"),extras.getString("cnum"),Integer.parseInt(jObj.getString("money")),jObj.getString("tym"),extras.getString("oneid"));
                 DatabaseHandler ob = new DatabaseHandler(this);
                 ob.updateContact(contact);
 
@@ -93,10 +96,17 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
                 List<Contacts> contacts = db.getAllContacts();
 
                 for (com.udhaar.udhaar.Contacts cn : contacts) {
-                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime();
+                    String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber()+" ,Money: "+cn.getMoney()+" ,tym: "+cn.getTime()+" ,oneid: "+cn.getoneid();
                     // Writing Contacts to log
                     Log.d("Name: ", log);
                 }
+
+                try {
+                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'@Name@ has taken Rs."+money+"from you.'Final Balance is: "+jObj.getString("money")+" }, 'include_player_ids': ['" +HomeActivity.oneid +extras.getString("oneid") + "']}"), null);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
                 Toast.makeText(this, "Money Taken Successfully",
                         Toast.LENGTH_LONG).show();

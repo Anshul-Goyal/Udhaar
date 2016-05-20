@@ -110,9 +110,9 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
-
+                String txtname = PreferenceManager.getDefaultSharedPreferences(popupmoneygive.this).getString("txtname", "NULL");
                 try {
-                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'@Name@ has given Rs."+ money + "  ' }, 'include_player_ids': ['" +  extras.getString("oneid") + "']}"), null);
+                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+ txtname +" has given Rs."+ money + "  ' }, 'include_player_ids': ['" +  extras.getString("oneid") + "']}"), null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

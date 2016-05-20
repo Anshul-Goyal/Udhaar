@@ -79,6 +79,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                         Toast.LENGTH_LONG).show();
                 PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtid", jObj.getString("id")).commit();
                 PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("oneid", HomeActivity.oneid).commit();
+                PreferenceManager.getDefaultSharedPreferences(login.this).edit().putString("txtname",etname.getText().toString()).commit();
                 PreferenceManager.getDefaultSharedPreferences(login.this).edit().putBoolean("firstlogin",false).commit();
                 Intent intent = new Intent(this, userhome.class);
                 startActivity(intent);

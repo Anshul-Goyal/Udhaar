@@ -101,12 +101,17 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
                     Log.d("Name: ", log);
                 }
 
+//                try {
+//                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'@Name@ has taken Rs."+money+"from you.'Final Balance is: "+jObj.getString("money")+" }, 'include_player_ids': ['" + extras.getString("oneid") + "']}"), null);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
                 try {
-                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'@Name@ has taken Rs."+money+"from you.'Final Balance is: "+jObj.getString("money")+" }, 'include_player_ids': ['" +HomeActivity.oneid +extras.getString("oneid") + "']}"), null);
+                    OneSignal.postNotification(new JSONObject("{'contents': {'en':'@Name@ has taken Rs."+ money + "  ' }, 'include_player_ids': ['" +  extras.getString("oneid") + "']}"), null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
                 Toast.makeText(this, "Money Taken Successfully",
                         Toast.LENGTH_LONG).show();

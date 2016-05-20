@@ -20,6 +20,10 @@ import android.content.pm.ActivityInfo;
 import android.content.ComponentName;
 import android.widget.Toast;
 import android.content.Context;
+import android.widget.ImageView;
+import android.view.View.OnTouchListener;
+import android.view.MotionEvent;
+import android.graphics.PorterDuff;
 
 public class userprofile extends AppCompatActivity {
     String cnum;
@@ -75,6 +79,98 @@ public class userprofile extends AppCompatActivity {
             t2.setTextColor(Color.GREEN);
         }
 
+        //get the image view
+        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+
+        //set the ontouch listener
+        imageView.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        System.out.println("helloinsideopencalc");
+                        ArrayList<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
+                        //PackageManager pm;
+                        final PackageManager pm = getPackageManager();
+                        List<PackageInfo> packs = pm.getInstalledPackages(0);
+                        for (PackageInfo pi : packs) {
+                            if (pi.packageName.toString().toLowerCase().contains("calcul")) {
+                                HashMap<String, Object> map = new HashMap<String, Object>();
+                                map.put("appName", pi.applicationInfo.loadLabel(pm));
+                                map.put("packageName", pi.packageName);
+                                items.add(map);
+                            }
+                        }
+
+                        if (items.size() >= 1) {
+
+                            String packageName = (String) items.get(0).get("packageName");
+                            Intent i = pm.getLaunchIntentForPackage(packageName);
+                            if (i != null)
+                                startActivity(i);
+                            else {
+                                Intent intent = new Intent();
+                                intent.setPackage(packageName);
+
+                                PackageManager p = getPackageManager();
+                                List<ResolveInfo> resolveInfos = p.queryIntentActivities(intent, 0);
+                                Collections.sort(resolveInfos, new ResolveInfo.DisplayNameComparator(p));
+
+                                if (resolveInfos.size() > 0) {
+                                    ResolveInfo launchable = resolveInfos.get(0);
+                                    ActivityInfo activity = launchable.activityInfo;
+                                    ComponentName name = new ComponentName(activity.applicationInfo.packageName,
+                                            activity.name);
+                                    Intent it = new Intent(Intent.ACTION_MAIN);
+
+                                    it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                            Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                                    it.setComponent(name);
+
+                                    startActivity(it);
+                                } else {
+                                    Context context = getApplicationContext();
+                                    CharSequence text = "Calculator cannot be opened. ";
+                                    int duration = Toast.LENGTH_SHORT;
+
+                                    Toast toast = Toast.makeText(context, text, duration);
+                                    toast.show();
+                                }
+                            }
+
+                            //  System.out.println("found "+packageName);
+
+                        } else {
+                            Context context = getApplicationContext();
+                            CharSequence text = "Calculator cannot be opened. ";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                        }
+
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return true;
+            }
+        });
+
     }
 
     public void popupmoneygive (View view){
@@ -104,71 +200,6 @@ public class userprofile extends AppCompatActivity {
         i.putExtra("oneid",contact.getoneid());
         startActivity(i);
     }
-
-    public void opencalc (View view) {
-        System.out.println("helloinsideopencalc");
-        ArrayList<HashMap<String,Object>> items =new ArrayList<HashMap<String,Object>>();
-       //PackageManager pm;
-        final PackageManager pm = getPackageManager();
-        List<PackageInfo> packs = pm.getInstalledPackages(0);
-        for (PackageInfo pi : packs) {
-            if( pi.packageName.toString().toLowerCase().contains("calcul")){
-                HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("appName", pi.applicationInfo.loadLabel(pm));
-                map.put("packageName", pi.packageName);
-                items.add(map);
-            }
-        }
-
-        if(items.size()>=1){
-
-            String packageName = (String) items.get(0).get("packageName");
-            Intent i = pm.getLaunchIntentForPackage(packageName);
-            if (i != null)
-                startActivity(i);
-            else{
-                Intent intent = new Intent();
-                intent.setPackage(packageName);
-
-                PackageManager p = getPackageManager();
-                List<ResolveInfo> resolveInfos = p.queryIntentActivities(intent, 0);
-                Collections.sort(resolveInfos, new ResolveInfo.DisplayNameComparator(p));
-
-                if(resolveInfos.size() > 0) {
-                    ResolveInfo launchable = resolveInfos.get(0);
-                    ActivityInfo activity = launchable.activityInfo;
-                    ComponentName name=new ComponentName(activity.applicationInfo.packageName,
-                            activity.name);
-                    Intent it=new Intent(Intent.ACTION_MAIN);
-
-                    it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                            Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                    it.setComponent(name);
-
-                    startActivity(it);
-                }
-                else
-                {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Calculator cannot be opened. ";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-            }
-
-              //  System.out.println("found "+packageName);
-
-        }
-        else{
-            Context context = getApplicationContext();
-            CharSequence text = "Calculator cannot be opened. ";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
-    }
+    
 
 }

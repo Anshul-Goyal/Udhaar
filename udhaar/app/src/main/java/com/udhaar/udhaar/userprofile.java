@@ -18,6 +18,8 @@ import android.content.pm.ResolveInfo;
 import java.util.Collections;
 import android.content.pm.ActivityInfo;
 import android.content.ComponentName;
+import android.widget.Toast;
+import android.content.Context;
 
 public class userprofile extends AppCompatActivity {
     String cnum;
@@ -145,14 +147,27 @@ public class userprofile extends AppCompatActivity {
 
                     startActivity(it);
                 }
+                else
+                {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Calculator cannot be opened. ";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
 
               //  System.out.println("found "+packageName);
 
         }
         else{
-            // Application not found
-            System.out.println("Calculator cannot be opened");
+            Context context = getApplicationContext();
+            CharSequence text = "Calculator cannot be opened. ";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
     }
 

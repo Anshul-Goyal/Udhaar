@@ -25,7 +25,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
 
     EditText etmobile;
     Button btnLogin;
-
+    EditText etname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
         setSupportActionBar(toolbar);
 
         etmobile = (EditText)findViewById(R.id.etmobile);
+        etname = (EditText)findViewById(R.id.etname);
         btnLogin = (Button)findViewById(R.id.btnlogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +48,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
                 postData.put("mobile", "android");
                 postData.put("oneid",(HomeActivity.oneid).toString());
                 postData.put("txtmobile", etmobile.getText().toString());
+                postData.put("txtname",etname.getText().toString());
 
                 PostResponseAsyncTask loginTask =
                         new PostResponseAsyncTask(login.this, postData);

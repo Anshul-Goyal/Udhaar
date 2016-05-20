@@ -67,6 +67,21 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="35dp" />
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/etname"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/etmobile"
+            android:layout_alignStart="@+id/etmobile"
+            android:layout_alignRight="@+id/etmobile"
+            android:layout_alignEnd="@+id/etmobile"
+            android:layout_marginBottom="10dp"
+            android:textSize="30dp"
+            android:textColor="#ffffff" />
+
 
     </RelativeLayout>
 

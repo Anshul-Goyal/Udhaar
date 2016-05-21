@@ -6,13 +6,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="10dip"
-    android:textSize="30dp"
-    android:textStyle="normal"
+    android:textSize="25dp"
     android:foreground="#9FA8DA"
-    android:textColor="#0b0404"
+    android:textColor="#1A237E"
     android:background="#C5CAE9"
     android:elegantTextHeight="false"
     android:linksClickable="false"
     android:longClickable="false"
-    android:textColorHighlight="#c11e1e">
+    android:typeface="monospace">
 </TextView>

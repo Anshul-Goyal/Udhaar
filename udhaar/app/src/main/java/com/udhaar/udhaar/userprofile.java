@@ -76,7 +76,7 @@ public class userprofile extends AppCompatActivity {
         }
         else
         {
-            t2.setTextColor(Color.GREEN);
+            t2.setTextColor(Color.rgb(34,177,76));
         }
 
         //get the image view
@@ -200,6 +200,6 @@ public class userprofile extends AppCompatActivity {
         i.putExtra("oneid",contact.getoneid());
         startActivity(i);
     }
-    
+
 
 }

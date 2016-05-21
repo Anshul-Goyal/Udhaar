@@ -16,8 +16,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="#283593"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/toolbar_title"
+                android:textSize="25dp"
+                android:textColor="#E8EAF6"
+                android:typeface="monospace"
+                android:textStyle="bold" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -76,7 +86,11 @@
             android:shadowRadius="5"
             android:layout_above="@+id/button15"
             android:layout_alignLeft="@+id/button15"
-            android:layout_alignStart="@+id/button15" />
+            android:layout_alignStart="@+id/button15"
+            android:focusable="true"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:enabled="true" />
 
         <Button
             android:id="@+id/button15"
@@ -92,28 +106,29 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:layout_marginBottom="125dp"
+            android:layout_marginBottom="85dp"
+            android:layout_marginRight="59dp"
+            android:layout_marginEnd="59dp"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:enabled="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="57dp"
-            android:layout_marginEnd="57dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textname"
+            android:layout_marginTop="90dp"
+            android:textSize="35dp"
+            android:textColor="#1A237E"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="43dp"
-            android:layout_marginStart="43dp"
-            android:layout_marginTop="80dp"
-            android:layout_alignRight="@+id/button14"
-            android:layout_alignEnd="@+id/button14"
-            android:textSize="40dp"
-            android:textColor="#090909" />
+            android:layout_alignRight="@+id/textmoney"
+            android:layout_alignEnd="@+id/textmoney"
+            android:layout_marginLeft="80dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -122,28 +137,49 @@
             android:layout_above="@+id/button14"
             android:layout_alignRight="@+id/button14"
             android:layout_alignEnd="@+id/button14"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="60dp"
+            android:textSize="40dp"
             android:layout_alignLeft="@+id/button14"
             android:layout_alignStart="@+id/button14"
-            android:textSize="40dp" />
+            android:layout_marginLeft="20dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:onClick="opencalc"
-            android:src="@drawable/rsz_calc"
-            android:layout_alignLeft="@+id/textname"
-            android:layout_alignStart="@+id/textname"
+            android:src="@drawable/calc1"
             android:layout_alignTop="@+id/button14"
             android:layout_alignBottom="@+id/button15"
             android:layout_toLeftOf="@+id/button14"
-            android:layout_toStartOf="@+id/button14"
-            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
-             />
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Amount :"
+            android:id="@+id/textView"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#1A237E"
+            android:layout_alignBottom="@+id/textmoney"
+            android:layout_toLeftOf="@+id/button14"
+            android:layout_toStartOf="@+id/button14"
+            android:layout_marginLeft="18dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_alignBottom="@+id/textname"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_alignTop="@+id/textname"
+            android:src="@drawable/user"/>
 
 
         <!--<ImageButton-->

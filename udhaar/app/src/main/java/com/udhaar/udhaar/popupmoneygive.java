@@ -145,6 +145,10 @@ public class popupmoneygive extends AppCompatActivity implements AsyncResponse{
 
     }
 
+    public void cancel_give (View view){
+
+        this.finish();
+    }
 
 
 }

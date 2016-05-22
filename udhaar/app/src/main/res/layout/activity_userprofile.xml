@@ -126,9 +126,13 @@
             android:textSize="35dp"
             android:textColor="#1A237E"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/textmoney"
-            android:layout_alignEnd="@+id/textmoney"
-            android:layout_marginLeft="80dp" />
+            android:layout_marginLeft="80dp"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -139,9 +143,11 @@
             android:layout_alignEnd="@+id/button14"
             android:layout_marginBottom="60dp"
             android:textSize="40dp"
-            android:layout_alignLeft="@+id/button14"
-            android:layout_alignStart="@+id/button14"
-            android:layout_marginLeft="20dp" />
+            android:text="₹ "
+            android:layout_toEndOf="@+id/imageView"
+            android:textColor="#1A237E"
+            android:layout_toRightOf="@+id/imageView"
+             />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -169,7 +175,8 @@
             android:layout_alignBottom="@+id/textmoney"
             android:layout_toLeftOf="@+id/button14"
             android:layout_toStartOf="@+id/button14"
-            android:layout_marginLeft="18dp" />
+            android:layout_marginLeft="18dp"
+            />
 
         <ImageView
             android:layout_width="wrap_content"

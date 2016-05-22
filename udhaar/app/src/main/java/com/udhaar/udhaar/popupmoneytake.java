@@ -1,6 +1,9 @@
 package com.udhaar.udhaar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -55,19 +58,30 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
         btngive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = PreferenceManager.getDefaultSharedPreferences(popupmoneytake.this).getString("txtid", "NULL");
-                HashMap postData = new HashMap();
-                postData.put("mobile", "android");
-                postData.put("txtid1", id);
-                postData.put("txtmob", cnum);
-                EditText editText = (EditText) findViewById(R.id.editText5);
-                 money = editText.getText().toString();
-                postData.put("txtmoney", money);
-                PostResponseAsyncTask Task =
-                        new PostResponseAsyncTask(popupmoneytake.this, postData);
-                System.out.println("Before Logging in");
-                Task.execute("http://"+login.ip+"/popupmoneytake.php");
-                System.out.println("After Logging in....");
+                if (isNetworkAvailable()) {
+                    String id = PreferenceManager.getDefaultSharedPreferences(popupmoneytake.this).getString("txtid", "NULL");
+                    HashMap postData = new HashMap();
+                    postData.put("mobile", "android");
+                    postData.put("txtid1", id);
+                    postData.put("txtmob", cnum);
+                    EditText editText = (EditText) findViewById(R.id.editText5);
+                    money = editText.getText().toString();
+                    postData.put("txtmoney", money);
+                    PostResponseAsyncTask Task =
+                            new PostResponseAsyncTask(popupmoneytake.this, postData);
+                    System.out.println("Before Logging in");
+                    Task.execute("http://" + login.ip + "/popupmoneytake.php");
+                    System.out.println("After Logging in....");
+                }
+                else
+                {
+                    Context context = getApplicationContext();
+                    CharSequence text = "No network found. Try again later!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
 
@@ -141,6 +155,13 @@ public class popupmoneytake extends AppCompatActivity implements AsyncResponse {
     public void cancel_take (View view){
 
         this.finish();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 

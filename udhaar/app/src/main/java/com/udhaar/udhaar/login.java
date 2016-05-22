@@ -1,7 +1,10 @@
 package com.udhaar.udhaar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -43,18 +46,31 @@ public class login extends AppCompatActivity implements AsyncResponse {
             @Override
             public void onClick(View v) {
 
-                HashMap postData = new HashMap();
-                postData.put("btnLogin", "Login");
-                postData.put("mobile", "android");
-                postData.put("oneid",(HomeActivity.oneid).toString());
-                postData.put("txtmobile", etmobile.getText().toString());
-                postData.put("txtname",etname.getText().toString());
+                if(isNetworkAvailable()) {
 
-                PostResponseAsyncTask loginTask =
-                        new PostResponseAsyncTask(login.this, postData);
-                System.out.println("Before Logging in");
-                loginTask.execute("http://"+ip+"/registration.php");
-                System.out.println("After Logging in....");
+                    HashMap postData = new HashMap();
+                    postData.put("btnLogin", "Login");
+                    postData.put("mobile", "android");
+                    postData.put("oneid", (HomeActivity.oneid).toString());
+                    postData.put("txtmobile", etmobile.getText().toString());
+                    postData.put("txtname", etname.getText().toString());
+
+                    PostResponseAsyncTask loginTask =
+                            new PostResponseAsyncTask(login.this, postData);
+                    System.out.println("Before Logging in");
+                    loginTask.execute("http://" + ip + "/registration.php");
+                    System.out.println("After Logging in....");
+
+                }
+                else
+                {
+                    Context context = getApplicationContext();
+                    CharSequence text = "No network found. Try again later!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
 
@@ -63,7 +79,7 @@ public class login extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void processFinish(String output) {
-        System.out.println("===================  "+output.toString()+"    =============");
+        System.out.println("===================  " + output.toString() + "    =============");
         JSONObject jObj= new JSONObject();
         try {
             jObj = new JSONObject(output.toString());
@@ -96,6 +112,13 @@ public class login extends AppCompatActivity implements AsyncResponse {
             e.printStackTrace();
         }
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 

@@ -66,11 +66,11 @@ public class userprofile extends AppCompatActivity {
 //        contact.setID(2);
         int finalm=contact.getMoney();
         TextView t2 = (TextView)findViewById(R.id.textmoney);
-        String finalmoney = String.valueOf(finalm);
+        String finalmoney = t2.getText() + String.valueOf(finalm);
         t2.setText(finalmoney);
 
 
-        if(finalmoney.startsWith("-"))
+        if(finalmoney.startsWith("₹ -"))
         {
             t2.setTextColor(Color.RED);
         }

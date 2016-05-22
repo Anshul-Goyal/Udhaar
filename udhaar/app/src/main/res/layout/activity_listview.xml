@@ -13,5 +13,8 @@
     android:elegantTextHeight="false"
     android:linksClickable="false"
     android:longClickable="false"
-    android:typeface="monospace">
+    android:typeface="monospace"
+    android:scrollHorizontally="true"
+    android:ellipsize="end"
+    android:maxLines="1" >
 </TextView>

@@ -39,6 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+        System.out.println("Creating Table...");
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_PH_NO + " TEXT,"+KEY_MONEY +" INTEGER ," +KEY_TIME +" TIMESTAMP ," + KEY_ONEID + " TEXT " + ")";
@@ -127,7 +128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 contact.setPhoneNumber(cursor.getString(2));
                 contact.setMoney(Integer.parseInt(cursor.getString(3)));
                 contact.setTime(cursor.getString(4));
-                contact.setTime(cursor.getString(5));
+                contact.setoneid(cursor.getString(5));
                 // Adding contact to list
                 contactList.add(contact);
             } while (cursor.moveToNext());
@@ -141,12 +142,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Getting contacts Count
     public int getContactsCount() {
         String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        SQLiteDatabase db22 = this.getReadableDatabase();
+        Cursor cursor = db22.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
         cursor.close();
-
         // return count
-        return cursor.getCount();
+//        return cursor.getCount();
+        return cnt;
     }
 
 

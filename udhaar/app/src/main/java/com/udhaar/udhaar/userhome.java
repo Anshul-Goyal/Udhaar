@@ -5,6 +5,8 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.Contacts;
@@ -54,7 +56,7 @@ public class userhome extends ListActivity implements AsyncResponse {
     String txtid="";
     private static final int mode=0;
     public static int var=0;
-
+    DatabaseHandler ob = new DatabaseHandler(this);
     private static final int PICK_CONTACT = 1; // request code integer
 
 
@@ -79,19 +81,68 @@ public class userhome extends ListActivity implements AsyncResponse {
         else
         var=1;
 
-        preferenceSettings = getPreferences(mode);
-        String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
-        ContactList = new ArrayList<HashMap<String, String>>();
-        HashMap postData = new HashMap();
-        postData.put("mobile", "android");
-        postData.put("txtid",id);
-        System.out.println("Users id ::::::::::  " + id);
+        if(isNetworkAvailable())
+        {
+            preferenceSettings = getPreferences(mode);
+            String id = PreferenceManager.getDefaultSharedPreferences(userhome.this).getString("txtid", "NULL");
+            ContactList = new ArrayList<HashMap<String, String>>();
+            HashMap postData = new HashMap();
+            postData.put("mobile", "android");
+            postData.put("txtid",id);
+            System.out.println("Users id ::::::::::  " + id);
 
-        PostResponseAsyncTask listTask = new PostResponseAsyncTask(userhome.this, postData);
-        listTask.execute(url_all_products);
+            PostResponseAsyncTask listTask = new PostResponseAsyncTask(userhome.this, postData);
+            listTask.execute(url_all_products);
+        }
 
-
+        else
+        {
+            //get data from local database !!!
+            int count = ob.getContactsCount();
+            Log.d("Reading: ", "Reading all contacts because of internet connectivity problem...");
+            List<com.udhaar.udhaar.Contacts> contacts = ob.getAllContacts();
+            int i=-1;
+            if(count!=0) {
+                namearrayrecent = new String[count];
+                namearrayall = new String[count];
+                namearraybygone = new String[count];
+                tymstamp = new String[count];
+                String[] mob_nos = new String[count];
+                for (com.udhaar.udhaar.Contacts cn : contacts) {
+                    i++;
+                    String log = "Id: " + cn.getID() + " ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber() + " ,Money: " + cn.getMoney() + " ,tym: " + cn.getTime() + " ,oneid: " + cn.getoneid();
+                    Log.d("Person :::: ", log);
+                    System.out.println(count);
+                    String name = getContactName(this, cn.getPhoneNumber());
+                    System.out.println("Name is : " + name);
+                    namearrayrecent[i] = name;
+                    namearrayall[i] = name;
+                    tymstamp[i] = cn.getTime();
+                    cmap.put(namearrayall[i], cn.getPhoneNumber());
+                    System.out.println("reached 1");
+                }
+                System.out.println("reached 2");
+                Arrays.sort(namearrayall);
+                System.out.println("reached 3");
+                display(namearrayall);
+                System.out.println("reached 4");
+                sortrecent();
+                System.out.println("reached 5");//namearrayrecent ready
+                sortbygone();
+            }
+        }
     }
+
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
     @Override
     public void onResume()
     {
@@ -261,7 +312,6 @@ public class userhome extends ListActivity implements AsyncResponse {
                             tymstamp[i]=object.getString("tym");
                             cmap.put(namearrayall[i],object.getString("mob_no"));
                             com.udhaar.udhaar.Contacts contact = new com.udhaar.udhaar.Contacts(object.getInt("id"),name,object.getString("mob_no"),object.getInt("money"),object.getString("tym"),object.getString("oneid"));
-                            DatabaseHandler ob = new DatabaseHandler(this);
                             ob.addContact(contact);
                             ob.updateContact(contact);
                             System.out.println("Object being added is..... : "+object.getInt("money")+ "id :    "+object.getString("oneid"));
